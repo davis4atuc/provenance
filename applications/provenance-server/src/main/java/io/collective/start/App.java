@@ -11,9 +11,7 @@ import io.collective.endpoints.EndpointWorker;
 import io.collective.restsupport.BasicApp;
 import io.collective.restsupport.NoopController;
 import io.collective.restsupport.RestTemplate;
-import io.collective.workflow.NoopWorker;
 import io.collective.workflow.WorkScheduler;
-import io.collective.workflow.Worker;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,8 +35,7 @@ public class App extends BasicApp {
             EndpointDataGateway gateway = new EndpointDataGateway();
             EndpointWorkFinder finder = new EndpointWorkFinder(gateway);
             RestTemplate template = new RestTemplate();
-            ArticleDataGateway articleGateway = new ArticleDataGateway();
-            EndpointWorker worker = new EndpointWorker(template,articleGateway );
+            EndpointWorker worker = new EndpointWorker(template,articleDataGateway );
 
             WorkScheduler<EndpointTask> scheduler = new WorkScheduler<>(finder, Collections.singletonList(worker), 300);
         }
